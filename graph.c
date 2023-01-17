@@ -55,14 +55,13 @@ void delete_node_cmd(pnode* head, pnode node_to_delete){
             third_node_temp = third_node_temp->next;
         }
         free(second_node_temp);
-        if(*head){
-            return;
-        }else{
+        if(!*head){
             *head = NULL;
         }
+        return;
     }
     pnode node_temp = *head;
-    while((node_temp->next->data != node_to_delete->data) && (node_temp->next)){
+    while((node_temp->next) && (node_temp->next->data != node_to_delete->data)){
         node_temp = node_temp->next;
     }
     
