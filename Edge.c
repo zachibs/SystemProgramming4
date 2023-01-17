@@ -2,6 +2,10 @@
 #include <stdlib.h>
 #include "graph.h"
 
+/* 
+ * This function creates a new edge in the graph and assigns the input node as the endpoint 
+ * and the input weight as the weight of the edge.
+ */
 edge* create_edge_cmd(pnode node, int weight){
     edge *new_edge = (edge*) malloc(sizeof(edge));
     if(new_edge){
@@ -11,6 +15,12 @@ edge* create_edge_cmd(pnode node, int weight){
     }
     return new_edge;
 }
+
+/* 
+ * This function inserts a new edge into the list of edges. 
+ * If the list is empty, the new edge becomes the first edge in the list. 
+ * Otherwise, it finds the last edge in the list and adds the new edge after it.
+ */
 void insert_edge_cmd(edge** pointer_edges, pnode node, int edge_weight){
     edge *new_edge = create_edge_cmd(node, edge_weight);
     if(!new_edge){
@@ -26,6 +36,11 @@ void insert_edge_cmd(edge** pointer_edges, pnode node, int edge_weight){
     edge_temp->next = new_edge;
 }
 
+/* 
+ * This function deletes an edge from the list of edges that has an endpoint node with the same data as the input data. 
+ * It checks if the first edge in the list has the matching data, if so it deletes that edge and adjust the pointers. 
+ * Otherwise, it iterates through the list to find the edge with the matching data
+ */
 void delete_edge_cmd(edge** pointer_edges, int data){
     if(!*pointer_edges){
         return;

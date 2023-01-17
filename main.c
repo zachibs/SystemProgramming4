@@ -1,34 +1,34 @@
 #include <stdlib.h>
 #include "graph.h"
 #include <stdio.h>
-#define CreateGraph 'A'
-#define CreateNode 'B'
-#define DeleteNode 'D'
-#define DijstraAlgo 'S'
-#define TSPAlgo 'T'
+#define CreateGraph 'A' // command to create a new graph
+#define CreateNode 'B' // command to create a new node
+#define DeleteNode 'D' // command to delete a node
+#define DijstraAlgo 'S' // command to run Dijkstra's shortest path algorithm
+#define TSPAlgo 'T' // command to run TSP algorithm
 
 int main() {
-    int mission = getchar();
+    int mission = getchar(); // get the command from the user
     int amount_of_nodes;
     int node_to_reach;
     int node_number;
     int bytes_received;
     int edge_weight;
     char n;
-    node* graph = NULL;
+    node* graph = NULL; // initialize the graph as empty
     while((mission == CreateGraph) || (mission == CreateNode) || (mission == DeleteNode) || (mission == DijstraAlgo) || (mission == TSPAlgo)) {
         if (mission == CreateGraph){
             if(graph != NULL){
-                delete_graph_cmd(&graph);
+                delete_graph_cmd(&graph); // delete the current graph if it exists
             }
             getchar();
-            scanf("%d", &amount_of_nodes);
+            scanf("%d", &amount_of_nodes); // get the number of nodes for the new graph
             scanf("%c", &n);
             scanf("%c", &n);
             for (int i = 0; i < amount_of_nodes; i++) {
-                scanf("%d", &node_number);
+                scanf("%d", &node_number); // get the node number
                 if (i == 0) {
-                    graph = create_node_cmd(node_number);
+                    graph = create_node_cmd(node_number); // create the first node
                 }
                 pnode point_to_node = graph;
                 while (point_to_node) {
@@ -38,12 +38,12 @@ int main() {
                     point_to_node = point_to_node->next;
                 }
                 if (!point_to_node) {
-                    point_to_node = create_node_cmd(node_number);
-                    insert_node_cmd(&graph, point_to_node);
+                    point_to_node = create_node_cmd(node_number); // create a new node if it doesn't exist
+                    insert_node_cmd(&graph, point_to_node); // insert the new node into the graph
                 }
                 bytes_received = scanf("%d",&node_to_reach);
                 while (bytes_received) {
-                    scanf("%d", &edge_weight);
+                    scanf("%d", &edge_weight); // get the weight of the edge between the current node and the node to reach
                     pnode temp_node = graph;
                     while (temp_node) {
                         if (temp_node->data == node_to_reach) {
@@ -53,31 +53,30 @@ int main() {
                     }
                     if (temp_node) {
                         pnode node_dst = temp_node;
-                        insert_edge_cmd(&point_to_node->edges, node_dst, edge_weight);
+                        insert_edge_cmd(&point_to_node->edges, node_dst, edge_weight); // insert the edge into the graph
                     }
                     else {
-                        pnode node_dst = create_node_cmd(node_to_reach);
-                        insert_node_cmd(&graph, node_dst);
-                        insert_edge_cmd(&point_to_node->edges, node_dst, edge_weight);
+                        pnode node_dst = create_node_cmd(node_to_reach); // create a new node if it doesn't exist
+                        insert_node_cmd(&graph, node_dst); // insert the new node into the graph
+                        insert_edge_cmd(&point_to_node->edges, node_dst, edge_weight); // insert the edge into the graph
                     }
                     if(getchar()==' '){
                         bytes_received=scanf("%d",&node_to_reach);
-                    }
-                    else{
+                    }else{
                         break;
                     }
                 }
-                mission = getc(stdin);
+                mission = getc(stdin); // get the next command
                 if (mission != 'n') {
                     break;
                 }
             }
-        }
+        } 
             else if(mission == CreateNode){
                 mission = getchar();
                 int node_number;
                 scanf("%d", &node_number);
-
+                
                 pnode point_to_node = graph;
                 while (point_to_node) {
                     if (point_to_node->data == node_number) {
@@ -86,8 +85,8 @@ int main() {
                     point_to_node = point_to_node->next;
                 }
                 if (!point_to_node) {
-                    point_to_node = create_node_cmd(node_number);
-                    insert_node_cmd(&graph, point_to_node);
+                    point_to_node = create_node_cmd(node_number); // create a new node if it doesn't exist
+                    insert_node_cmd(&graph, point_to_node); // insert the new node into the graph
                 }
                 pedge edge_temp = point_to_node -> edges;
                 while(edge_temp){
@@ -95,12 +94,12 @@ int main() {
                     edge_temp = edge_temp -> next;
                     free(remove_edges);
                 }
-                point_to_node ->edges = NULL;
+                point_to_node ->edges = NULL; // remove the edges from the node
 
                 int node_to_reach;
                 int edge_weight;
-                scanf("%d", &node_to_reach);
-                scanf("%d", &edge_weight);
+                scanf("%d", &node_to_reach); // get the node to reach
+                scanf("%d", &edge_weight); // get the weight of the edge between the current node and the node to reach
 
                 while(mission == ' '){
                     pnode node_next = graph;

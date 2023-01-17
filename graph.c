@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "graph.h"
 
-
+// Function that creates a new node with the given node number and initializes its next pointer, data, and edges to NULL
 node* create_node_cmd(int node_number) {
     node *new_node = (node *) malloc(sizeof(node));
     if (!new_node) {
@@ -15,6 +15,7 @@ node* create_node_cmd(int node_number) {
     }
 }
 
+//Function that inserts a given node into a linked list of nodes
 void insert_node_cmd(node** head, pnode node){
     if (node && *head){
     pnode node_temp = *head;
@@ -32,6 +33,7 @@ void insert_node_cmd(node** head, pnode node){
     }
 }
 
+//Function that removes a given node from the linked list of nodes and frees the memory associated with the node
 void delete_node_cmd(pnode* head, pnode node_to_delete){
     if(!*head)
         return;
@@ -86,6 +88,7 @@ void delete_node_cmd(pnode* head, pnode node_to_delete){
     }
 }
 
+//Function that removes a given graph (head node) and frees the memory associated with the graph
 void delete_graph_cmd(pnode* head){
     while(*head){
         delete_node_cmd(head, *head);

@@ -3,8 +3,16 @@
 #include <stdlib.h>
 #include "graph.h"
 
+/*
+ * Implementing Dijkstra's Algorithm to find the shortest path between two nodes
+ * @param head: pointer to the head of the linked list representing the graph
+ * @param source_node: starting node
+ * @param end_node: ending node
+ * @return the shortest distance between the two nodes
+ */
 int dijksta_algo(pnode *head, int source_node, int end_node){
     pnode node_temp = *head;
+    // Finding the maximum number seen in the list
     int max_number_seen = 0;
     while(node_temp){
         if(max_number_seen < node_temp->data){
@@ -16,16 +24,19 @@ int dijksta_algo(pnode *head, int source_node, int end_node){
     int list_of_distances[max_number_seen + 1];
     int index = 0;
     node_temp = *head;
+    // Initializing the list_of_seen and list_of_distances arrays
     while(index <= max_number_seen){
         list_of_seen[index] = -1;
         list_of_distances[index] = (INT_MAX);
         index++;
     }
+    // Marking all nodes as seen
     while (node_temp){
         list_of_seen[node_temp->data] = 1;
         node_temp=node_temp->next;
     }
     list_of_distances[source_node]=0;
+    // Iterating through the graph to find the shortest distance
     while(1){
         node_temp = *head;
         int node_with_minimum_data;
@@ -45,6 +56,7 @@ int dijksta_algo(pnode *head, int source_node, int end_node){
             node_temp=node_temp->next;
         }
         pedge edge_current = node_temp->edges;
+        // Updating the list_of_distances array
         while(edge_current){
             distance_curr = list_of_distances[edge_current->endpoint->data];
             distance_new = list_of_distances[node_with_minimum_data] + edge_current->weight;
@@ -58,17 +70,24 @@ int dijksta_algo(pnode *head, int source_node, int end_node){
             break;
         }
     }
+    // Check if the end_node is reachable
     if((list_of_distances[end_node] == INT_MIN) || (list_of_distances[end_node] == INT_MAX)){
         return -1;
     }
     return list_of_distances[end_node];
 }
 
+/*
+ * Implementing TSP algorithm using Dijkstra's Algorithm
+ * @param head: pointer to the head of the linked list representing the graph
+ * @return the shortest distance between all the given nodes
+ */
 int tsp_algo(pnode *head){
     int k;
     scanf("%d", &k);
     int index = 0;
     int list_of_nodes[k];
+    // Reading input of the nodes
     while (index < k){
         scanf("%d", &list_of_nodes[index]);
         index++;
@@ -79,6 +98,7 @@ int tsp_algo(pnode *head){
         int list_of_nodes_temp[k];
         int data_source = list_of_nodes[i];
         int value = 0;
+        // Creating a temporary list of nodes
         for(int j = 0; j < k; j++){
             list_of_nodes_temp[j] = list_of_nodes[j];
         }
@@ -105,7 +125,7 @@ int tsp_algo(pnode *head){
             }
             if(curr_seen_min != INT_MAX){
             value += curr_seen_min;
-            list_of_nodes_temp[position]=-1;
+            list_of_nodes_temp[position] = -1;
             data_source=list_of_nodes[position];
             } else{
                 break;
