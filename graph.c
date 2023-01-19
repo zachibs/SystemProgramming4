@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "graph.h"
+#include "declarations.h"
 
 // Function that creates a new node with the given node number and initializes its next pointer, data, and edges to NULL
 node* create_node_cmd(int node_number) {

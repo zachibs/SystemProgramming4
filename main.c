@@ -1,5 +1,5 @@
 #include <stdlib.h>
-#include "graph.h"
+#include "declarations.h"
 #include <stdio.h>
 #define CreateGraph 'A' // command to create a new graph
 #define CreateNode 'B' // command to create a new node

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "graph.h"
+#include "declarations.h"
 
 /* 
  * This function creates a new edge in the graph and assigns the input node as the endpoint 

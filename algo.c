@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <limits.h>
 #include <stdlib.h>
-#include "graph.h"
+#include "declarations.h"
 
 /*
  * Implementing Dijkstra's Algorithm to find the shortest path between two nodes
